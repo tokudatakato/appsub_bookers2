@@ -19,7 +19,7 @@ class User < ApplicationRecord
                       dependent: :destroy
                       
   has_many :followings, through: :active_relationships, source: :followed
-  has_many :followings, through: :passive_relationships, source: :follower
+  has_many :followers, through: :passive_relationships, source: :follower
   
   has_one_attached :profile_image
 
