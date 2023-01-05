@@ -1,0 +1,2 @@
+$(".comment-list").html("<%= j(render "book_comments/comment", book: @book, comments: @comment.book.comments) %>");
+$(".inputComment").val('');
