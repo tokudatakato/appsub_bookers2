@@ -17,20 +17,8 @@
           </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
-          <td>
-            <% if @book.favorited_by?(current_user) %>
-              <p>
-                <%= link_to book_favorites_path(@book), class: "text-danger", method: :delete do %>
-                  ♥<%= @book.favorites.count %>
-                <% end %>
-              </p>
-            <% else %>
-              <p>
-                <%= link_to book_favorites_path(@book), method: :post do %>
-                  ♥<%= @book.favorites.count %>
-                <% end %>
-              </p>
-            <% end %>
+          <td id="favorite_buttons_<%= @book.id %>">
+            <%= render "favorites/favorite", book: @book %>
           </td>
           <td>
             <p>コメント数: <%= @book.book_comments.count %></p>
@@ -41,14 +29,8 @@
           <% end %>
         </tr>
       </table>
-      <div class="comment-list">
-        <%= render "book_comments/comment", comments: @comments, book: @book %>
-      </div>
-      <div>
-        <%= form_with model: [@book, @comment] do |f| %>
-          <%= f.text_area :comment, rows: '5', class: "w-100 inputComment" %>
-          <p><%= f.submit "送信" %></p>
-        <% end %>
+      <div id="comment_list_<%= @book.id %>">
+        <%= render "book_comments/comment", comments: @comments, book: @book, comment: @comment %>
       </div>
     </div>
   </div>
