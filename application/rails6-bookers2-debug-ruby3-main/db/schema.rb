@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_07_225536) do
+ActiveRecord::Schema.define(version: 2023_01_09_114415) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -70,6 +70,22 @@ ActiveRecord::Schema.define(version: 2023_01_07_225536) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "hashtag_books", force: :cascade do |t|
+    t.integer "book_image_id"
+    t.integer "hashtag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_image_id"], name: "index_hashtag_books_on_book_image_id"
+    t.index ["hashtag_id"], name: "index_hashtag_books_on_hashtag_id"
+  end
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string "hashname"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hashname"], name: "index_hashtags_on_hashname", unique: true
+  end
+
   create_table "post_tags", force: :cascade do |t|
     t.integer "post_id", null: false
     t.integer "tag_id", null: false
@@ -109,6 +125,8 @@ ActiveRecord::Schema.define(version: 2023_01_07_225536) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "hashtag_books", "book_images"
+  add_foreign_key "hashtag_books", "hashtags"
   add_foreign_key "post_tags", "posts"
   add_foreign_key "post_tags", "tags"
 end
