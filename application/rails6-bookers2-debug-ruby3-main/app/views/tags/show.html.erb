@@ -1,0 +1,28 @@
+<h2>ハッシュタグが埋め込まれている投稿一覧</h2>
+<div style = "display: flex; flex-wrap: wrap;">
+    <% @book_objects.each_with_index do |book,i| %>
+        <%
+            display_caption = book["body"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
+        %>
+        <div style="border: 1px solid black;margin: 2%;padding: 3%;width: 25%;">
+            <div style="border-bottom: 1px solid">
+                <p style="color: red">title</p>
+                <%= book["title"] %>
+            </div>
+            <div>
+                <p style="color: red">body</p>
+                <p>
+                    <%= display_body %><br>
+                    <% if book["tags"].present? %>
+                        <% book["tags"].each do |tag| %>
+                            <%= link_to "##{tag.name}", tag_path(tag.id) %>
+                        <% end %>
+                    <% end %>
+                <p>
+            </div>
+            <%= link_to "詳細", book_path(id: book["id"]) %>
+            <%= link_to "編集", edit_book_path(id: book["id"]) %>
+            <%= link_to "削除", book_path(id: book["id"]),method: :delete %>
+        </div>
+    <% end %>
+</div>

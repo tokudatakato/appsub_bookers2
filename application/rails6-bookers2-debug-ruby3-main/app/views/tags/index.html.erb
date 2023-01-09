@@ -1,0 +1,12 @@
+<h2>ハッシュタグ一覧</h2>
+<% @tags.each do |tag| %>
+    <%
+        name = tag["name"]
+        count = tag["count"]
+        id = tag["id"]
+
+    %>
+    <p>
+        <%= link_to "##{name}(#{count})", tag_path(id) %>
+    </p>
+<% end %>
